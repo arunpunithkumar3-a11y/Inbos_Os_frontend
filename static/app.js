@@ -28,7 +28,7 @@
         
         // Developer settings and states
         confidenceScore: 1.0,
-        showTimeline: true,
+        showTimeline: false,
         enableToasts: true,
         attachments: [] // List of { file, name, size, id }
     };
@@ -1701,6 +1701,7 @@
 
     // ── DETAILED CONSOLE LOGS TIMELINE ──
     function appendConsoleLog(message, type = 'info') {
+        console.log(`[Inbox OS: ${type}] > ${message}`);
         const timeline = document.getElementById('console-timeline');
         if (!timeline) return;
 
@@ -1736,7 +1737,7 @@
             state.showTimeline = savedTimeline === 'true';
         } else {
             // First load: false on mobile/tablet to avoid covering screen, true on desktop
-            state.showTimeline = window.innerWidth > 1024;
+            state.showTimeline = false;
         }
         if (settingsToggleTimeline) settingsToggleTimeline.checked = state.showTimeline;
         applyTimelineState();
@@ -1761,8 +1762,8 @@
             settingsModal.classList.add('active');
             if (settingsConfidenceInput) settingsConfidenceInput.value = state.confidenceScore;
             if (confidenceValue) confidenceValue.textContent = state.confidenceScore.toFixed(1);
-            settingsToggleTimeline.checked = state.showTimeline;
-            settingsToggleToasts.checked = state.enableToasts;
+            if (settingsToggleTimeline) settingsToggleTimeline.checked = state.showTimeline;
+            if (settingsToggleToasts) settingsToggleToasts.checked = state.enableToasts;
         }
     }
 
@@ -1790,11 +1791,14 @@
             state.confidenceScore = parseFloat(settingsConfidenceInput.value);
             localStorage.setItem('inbox_os_confidence', state.confidenceScore);
         }
-        state.showTimeline = settingsToggleTimeline.checked;
-        state.enableToasts = settingsToggleToasts.checked;
-
-        localStorage.setItem('inbox_os_show_timeline', state.showTimeline);
-        localStorage.setItem('inbox_os_enable_toasts', state.enableToasts);
+        if (settingsToggleTimeline) {
+            state.showTimeline = settingsToggleTimeline.checked;
+            localStorage.setItem('inbox_os_show_timeline', state.showTimeline);
+        }
+        if (settingsToggleToasts) {
+            state.enableToasts = settingsToggleToasts.checked;
+            localStorage.setItem('inbox_os_enable_toasts', state.enableToasts);
+        }
 
         applyTimelineState();
         closeSettings();
@@ -1911,7 +1915,7 @@
         steps: [
             {
                 title: 'Welcome to Inbox OS',
-                description: 'Your premium minimal workspace for AI-powered email management. Let\'s show you around in 6 quick steps!',
+                description: 'Your premium minimal workspace for AI-powered email management. Let\'s show you around in 5 quick steps!',
                 target: '#welcome-state',
                 placement: 'bottom'
             },
@@ -1928,12 +1932,6 @@
                 placement: 'top'
             },
             {
-                title: 'Live Activity Timeline',
-                description: 'Expand this panel to view live reasoning logs, multi-agent status transitions, and statistical database tool traces.',
-                target: '#btn-toggle-utility',
-                placement: 'left'
-            },
-            {
                 title: 'Recent Conversations History',
                 description: 'Switch between ongoing email conversations, delete finished histories safely, or start fresh conversation slates.',
                 target: '.threads-section',
@@ -1941,7 +1939,7 @@
             },
             {
                 title: 'Workspace Settings',
-                description: 'Open this panel to toggle presentation properties (like Activity Timeline and floating toast alerts) to match your workflow.',
+                description: 'Open this panel to toggle presentation properties (like floating toast alerts) to match your workflow.',
                 target: '#btn-open-settings',
                 placement: 'top'
             }
@@ -2348,22 +2346,7 @@
             });
         });
 
-        // Collapsible Timeline Toggler
-        if (btnToggleUtility) {
-            btnToggleUtility.addEventListener('click', () => {
-                state.showTimeline = !state.showTimeline;
-                localStorage.setItem('inbox_os_show_timeline', state.showTimeline);
-                applyTimelineState();
-                
-                // Keep toggle switch in settings modal in sync
-                if (settingsToggleTimeline) {
-                    settingsToggleTimeline.checked = state.showTimeline;
-                }
-                
-                showToast(state.showTimeline ? 'Activity timeline expanded' : 'Activity timeline collapsed', 'info');
-                appendConsoleLog(state.showTimeline ? 'Timeline visible.' : 'Timeline hidden.', 'info');
-            });
-        }
+        // Collapsible Timeline Toggler removed as the timeline has been deleted.
 
         // Settings Modal event bindings
         if (btnOpenSettings) {
@@ -2549,7 +2532,7 @@
                 }
             }
             if (window.innerWidth <= 1024) {
-                if (utilityPanel && !utilityPanel.contains(e.target) && !btnToggleUtility.contains(e.target) && !utilityPanel.classList.contains('collapsed')) {
+                if (utilityPanel && btnToggleUtility && !utilityPanel.contains(e.target) && !btnToggleUtility.contains(e.target) && !utilityPanel.classList.contains('collapsed')) {
                     state.showTimeline = false;
                     localStorage.setItem('inbox_os_show_timeline', 'false');
                     applyTimelineState();
