@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox OS | AI Email Workspace</title>
+    <!-- Google Fonts & Stylesheet -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- 1. Authentication Layer (Login / Signup Screen) -->
+    <div id="auth-screen" class="screen-overlay active">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-logo">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="5" fill="currentColor"/>
+                        <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 class="brand-name">Inbox OS</h1>
+                <p class="brand-subtitle">Minimal AI Email Workspace</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <h2 class="form-title">Welcome Back</h2>
+                <p class="form-description">Enter your credentials to access your workspace.</p>
+                
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
+                </div>
+
+                <div id="login-error" class="error-banner hidden"></div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Sign In</span>
+                    <span class="spinner hidden"></span>
+                </button>
+
+                <p class="auth-toggle">
+                    Don't have an account? <a href="#" id="toggle-to-signup">Sign up</a>
+                </p>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form">
+                <h2 class="form-title">Create Account</h2>
+                <p class="form-description">Register a new profile to get started.</p>
+
+                <div class="form-group">
+                    <label for="signup-name">Display Name</label>
+                    <input type="text" id="signup-name" required placeholder="John Doe" autocomplete="name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="Min 6 characters" autocomplete="new-password">
+                </div>
+
+                <div id="signup-error" class="error-banner hidden"></div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Create Account</span>
+                    <span class="spinner hidden"></span>
+                </button>
+
+                <p class="auth-toggle">
+                    Already have an account? <a href="#" id="toggle-to-login">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Application Workspace -->
+    <div id="app-workspace" class="workspace-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="logo-group">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-primary);">
+                        <rect width="24" height="24" rx="5" fill="currentColor"/>
+                        <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div>
+                        <span class="sidebar-logo-text">Inbox OS</span>
+                    </div>
+                </div>
+                <button id="btn-close-sidebar" class="btn-icon mobile-only" title="Close Sidebar">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Google Gmail Connection Status (Integrated Row) -->
+            <div class="gmail-status-item">
+                <div class="gmail-status-item-left">
+                    <div id="gmail-dot" class="status-dot disconnected"></div>
+                    <span id="gmail-email" class="gmail-subtitle">Gmail disconnected</span>
+                </div>
+                <button id="btn-connect-gmail" class="btn-icon" title="Connect Gmail">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    </svg>
+                </button>
+            </div>
+
+
+
+            <!-- Start New Thread Action -->
+            <button id="btn-new-thread" class="btn btn-primary btn-block new-thread-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                New Conversation
+            </button>
+
+            <!-- Threads List Panel -->
+            <div class="threads-section">
+                <h3 class="section-title">Recent Chats</h3>
+                <div id="thread-list" class="thread-list-container">
+                    <div class="thread-loading-shim">
+                        <div class="shim-item"></div>
+                        <div class="shim-item"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile and Actions -->
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="profile-avatar" id="user-avatar">U</div>
+                    <div class="profile-meta">
+                        <span class="profile-name" id="user-display-name">Username</span>
+                        <span class="profile-email" id="user-email-address">user@inboxos.com</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.25rem; flex-shrink: 0;">
+                    <button id="btn-open-tour" class="btn-icon" title="Onboarding Tutorial Tour">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </button>
+                    <button id="btn-open-skills" class="btn-icon" title="AI Capabilities & Skills">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </button>
+                    <button id="btn-open-settings" class="btn-icon" title="Settings">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                    <button id="btn-logout" class="btn-icon" title="Sign Out">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Workspace -->
+        <main class="chat-workspace">
+            <!-- Workspace Header -->
+            <header class="workspace-header">
+                <div class="header-left">
+                    <button id="btn-toggle-sidebar" class="btn-icon mobile-only" title="Toggle Sidebar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="active-thread-info">
+                        <h2 id="active-thread-title" class="active-title">New Conversation</h2>
+                        <span id="active-thread-status" class="active-subtitle">Workspace loaded</span>
+                    </div>
+                </div>
+                <div class="header-right" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="header-badge" id="system-badge">OS ACTIVE</div>
+                    <button id="btn-toggle-utility" class="btn-icon" title="Toggle Timeline">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Chat Panel -->
+            <div id="chat-messages" class="chat-viewport">
+                <!-- 1. Default Welcome Screen / Empty State -->
+                <div id="welcome-state" class="welcome-container">
+                    <div class="welcome-branding">
+                        <div class="big-logo-ring">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" rx="5" fill="currentColor"/>
+                                <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 class="welcome-title">Inbox OS Workspace</h2>
+                        <p class="welcome-subtitle">Ask questions, search details, or draft replies. I have complete access to your Google Gmail.</p>
+                        <button id="btn-view-capabilities" class="btn btn-secondary" style="margin-top: 0.75rem; gap: 0.35rem;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                            Explore AI Capabilities & Skills
+                        </button>
+                    </div>
+
+                    <div id="gmail-alert-box" class="welcome-alert warning">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; color: var(--color-warning);">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <div class="alert-content">
+                            <h4>Gmail Authentication Required</h4>
+                            <p>To active skills like reading threads, drafting replies, and listing mailboxes, connect your Gmail above.</p>
+                        </div>
+                    </div>
+
+                    <div class="welcome-suggestions">
+                        <h3>Suggested Workflows</h3>
+                        <div class="suggestions-grid">
+                            <div class="suggestion-card" data-prompt="Check my latest 5 emails and summarize them">
+                                <span class="card-icon">📥</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">Summarize Recent Emails</span>
+                                    <span class="suggestion-desc">"Check my latest 5 emails and summarize them"</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-card" data-prompt="List unread emails from today">
+                                <span class="card-icon">⚡</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">List Unread Alerts</span>
+                                    <span class="suggestion-desc">"List unread emails from today"</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-card" data-prompt="Search my emails for Stripe invoices or payment receipts from the last month">
+                                <span class="card-icon">💳</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">Search Stripe Invoices</span>
+                                    <span class="suggestion-desc">"Search my emails for Stripe invoices from last month"</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-card" data-prompt="Create a draft reply to the last email I received">
+                                <span class="card-icon">✍️</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">Draft AI Reply</span>
+                                    <span class="suggestion-desc">"Create a draft reply to the last email I received"</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-card" data-prompt="Draft a task summary email to myself based on my calendar and today's alerts">
+                                <span class="card-icon">✉️</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">Draft Task Summary</span>
+                                    <span class="suggestion-desc">"Draft a task summary email to myself..."</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-card" data-prompt="Find old newsletter or notification emails and archive them">
+                                <span class="card-icon">🧹</span>
+                                <div class="suggestion-meta">
+                                    <span class="suggestion-title">Archive Notifications</span>
+                                    <span class="suggestion-desc">"Find old notification emails and archive them"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Dynamic Messages Container -->
+                <div id="message-flow" class="message-flow-container hidden">
+                    <!-- Rendered bubbles go here -->
+                </div>
+            </div>
+
+            <!-- Bottom Floating Input Area -->
+            <footer class="input-panel">
+                <div class="input-container">
+                    <!-- Dynamic attachment chips display -->
+                    <div id="attachment-chips" class="attachment-chips-container hidden"></div>
+                    
+                    <textarea id="chat-input" placeholder="Ask Inbox OS to draft, search, or organize emails..." rows="1"></textarea>
+                    
+                    <div class="input-toolbar">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <button id="btn-attach-file" class="btn-icon" title="Attach Files">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                </svg>
+                            </button>
+                            <input type="file" id="file-attachment" multiple style="display: none;">
+                            <div class="shortcut-tip">
+                                <span class="keyboard-badge">Ctrl+K</span> Actions &bull; <span class="keyboard-badge">Ctrl+Enter</span> Send
+                            </div>
+                        </div>
+                        
+                        <button id="btn-send-message" class="btn btn-primary btn-circle" title="Send Message" disabled>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Right Utility Panel (Workspace Activity Timeline) -->
+        <aside class="utility-panel">
+            <div class="utility-header">
+                <span class="utility-title">Activity Timeline</span>
+            </div>
+            <div class="utility-content">
+                <div class="utility-section">
+                    <div class="console-timeline" id="console-timeline">
+                        <div class="console-log-row">
+                            <span class="console-log-time">18:51:24</span>
+                            <span class="console-log-text info">Inbox OS connection established.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Command Palette (Ctrl+K Modal) -->
+    <div class="command-palette-backdrop" id="command-palette">
+        <div class="command-palette-card">
+            <div class="palette-search-container">
+                <svg class="palette-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input class="palette-search-input" type="text" id="palette-search" placeholder="Type a command or search..." autocomplete="off">
+                <span class="palette-badge">ESC to close</span>
+            </div>
+            <div class="palette-results-container" id="palette-results">
+                <!-- Results rendered dynamically in app.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Settings Panel (Modal Overlay) -->
+    <div class="settings-backdrop" id="settings-modal">
+        <div class="settings-card">
+            <div class="settings-header">
+                <h3 class="settings-title">Workspace Settings</h3>
+                <button id="btn-close-settings" class="btn-icon" title="Close Settings">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="settings-body">
+                <div class="settings-section">
+                    <h4 class="settings-section-title">Interface Preferences</h4>
+                    <p class="settings-section-desc">Tailor your workspace appearance and interactive elements.</p>
+                    <div class="settings-toggle-group">
+                        <div class="toggle-info">
+                            <span class="toggle-title">Show Activity Timeline</span>
+                            <span class="toggle-desc">Display real-time tool execution logs on the right.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="settings-toggle-timeline" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-toggle-group">
+                        <div class="toggle-info">
+                            <span class="toggle-title">Enable Floating Toasts</span>
+                            <span class="toggle-desc">Show micro-notifications for workspace events.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="settings-toggle-toasts" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section border-top" style="margin-top: 1.5rem; padding-top: 1.5rem;">
+                    <h4 class="settings-section-title">Help & Onboarding</h4>
+                    <p class="settings-section-desc">Need assistance or want to review the workspace features?</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem;">
+                        <span class="toggle-title" style="font-size: 0.875rem; font-weight: 500; color: var(--text-secondary);">Interactive Guided Tour</span>
+                        <button id="btn-settings-restart-tour" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
+                            Restart Tutorial
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button id="btn-save-settings" class="btn btn-primary">Save Preferences</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Skills Panel (Modal Overlay) -->
+    <div class="settings-backdrop" id="skills-modal">
+        <div class="settings-card skills-card-modal">
+            <div class="settings-header">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="color: var(--accent-primary); display: flex;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="settings-title">AI Capabilities & Skills</h3>
+                </div>
+                <button id="btn-close-skills" class="btn-icon" title="Close Capabilities">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="settings-body" style="max-height: 58vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; padding-right: 4px;">
+                <div class="settings-section">
+                    <h4 class="settings-section-title">Core Capabilities</h4>
+                    <p class="settings-section-desc">Inbox OS is equipped with standard Gmail and tool integration skillsets:</p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <span class="skill-icon">📥</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Email Search & Ingestion</span>
+                                <span class="skill-desc">Query and fetch email threads matching specific search criteria (e.g. from, subject, unread).</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">✉️</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Secure Email Compose</span>
+                                <span class="skill-desc">Compose and dispatch brand new emails directly via your Google Gmail account.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">✍️</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Threaded Reply Routing</span>
+                                <span class="skill-desc">Draft and send replies directly chained to an ongoing email thread ID safely.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">📖</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Unread/Read Reciprocation</span>
+                                <span class="skill-desc">Update read/unread read receipts and message statuses inside your inbox.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">🧹</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Inbox Organization & Clean Up</span>
+                                <span class="skill-desc">Clean up your primary inbox by archiving threads or moving items to trash.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">🏷️</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Custom Labels & Folder Organization</span>
+                                <span class="skill-desc">Attach or remove custom tags and folders to categorize specific threads.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">📜</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Label Hierarchy Discovery</span>
+                                <span class="skill-desc">Retrieve and browse all custom organizational labels currently active in Gmail.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">📝</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Save Pending Drafts</span>
+                                <span class="skill-desc">Draft emails and save them directly in Gmail Drafts for your final manual review.</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">📊</span>
+                            <div class="skill-details">
+                                <span class="skill-name">Analytical Mailbox Telemetry</span>
+                                <span class="skill-desc">Analyze mailbox stats, fetch inbox counts, and view key productivity metrics.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section border-top">
+                    <h4 class="settings-section-title">Safety & Confidence Protocol</h4>
+                    <p class="settings-section-desc">Inbox OS utilizes advanced multi-agent governance to ensure safety and precision:</p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+                        <div class="protocol-row">
+                            <span class="protocol-badge shield">Action Gateway</span>
+                            <span class="protocol-text">Any destructive actions (like sending emails, deleting, or archiving) require your explicit final approval.</span>
+                        </div>
+                        <div class="protocol-row">
+                            <span class="protocol-badge info">Confidence Scaling</span>
+                            <span class="protocol-text">Destructive actions are automatically scaled by a confidence score. If understanding is low, the system stops and requests clarification.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button id="btn-close-skills-footer" class="btn btn-primary btn-block">Acknowledge</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript App Code -->
+    <script src="app.js?v=1.0.2"></script>
+</body>
+</html>
