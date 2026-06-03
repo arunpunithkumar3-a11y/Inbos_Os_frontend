@@ -2583,11 +2583,29 @@
         });
     }
 
+    // Wake up the MCP server from sleeping mode when frontend loads
+    function wakeUpMCPServer() {
+        const mcpUrl = 'https://ai-gmail-mcp-server-11.onrender.com/mcp';
+        console.log(`Waking up MCP server at: ${mcpUrl}`);
+        fetch(mcpUrl, {
+            method: 'GET',
+            mode: 'no-cors',
+            cache: 'no-cache'
+        })
+        .then(() => {
+            console.log('MCP server pinged for wake up.');
+        })
+        .catch(err => {
+            console.warn('MCP server ping returned/failed (expected if CORS is restricted, but request still went out):', err);
+        });
+    }
+
     // ── INITIALIZATION ──
     function init() {
         registerEvents();
         loadSavedSettings();
         renderScreenState();
+        wakeUpMCPServer();
     }
 
     document.addEventListener('DOMContentLoaded', init);
