@@ -1,0 +1,105 @@
+
+import React, { useState } from "react";
+
+function ToolBlock({ tool }) {
+  const [expanded, setExpanded] = useState(false);
+  const { name, output } = tool;
+
+  return (
+    <div className={`reasoning-tool-block ${expanded ? "expanded" : ""}`}>
+      <div className="reasoning-tool-header" onClick={() => setExpanded(!expanded)}>
+        <div className="reasoning-tool-header-left">
+          <span className="reasoning-tool-icon">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </span>
+          <span className="reasoning-tool-name">{name}</span>
+        </div>
+        <span className="reasoning-tool-chevron">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      </div>
+      <div className="reasoning-tool-body">
+        <div className="tool-io-section">
+          <span className="tool-io-label">Output</span>
+          <pre className="tool-io-content">{output}</pre>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ReasoningPanel({ message }) {
+  const { steps = [], tools = [], status } = message;
+
+  let statusText = "Thinking...";
+  if (status === "completed") statusText = "Completed";
+  else if (status === "failed") statusText = "Failed";
+  else if (status === "gateway") statusText = "Gateway validation required";
+
+  const getStatusPillStyle = () => {
+    if (status === "failed") {
+      return {
+        color: "var(--color-error)",
+        borderColor: "rgba(239, 68, 68, 0.2)",
+      };
+    }
+    return {};
+  };
+
+  return (
+    <div className="message-row agent">
+      <div className="message-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ display: "block" }}>
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M22 6l-10 7L2 6"></path>
+        </svg>
+      </div>
+      <div className="reasoning-panel">
+        <div className="reasoning-header">
+          <div className="reasoning-header-left">
+            {status === "thinking" && <span className="pulse-indicator"></span>}
+            <span className="reasoning-title">Reasoning trace</span>
+          </div>
+          <span className="reasoning-status-pill" style={getStatusPillStyle()}>
+            {statusText}
+          </span>
+        </div>
+        <div className="reasoning-steps">
+          {steps.map((step, idx) => {
+            const isActive = step.status === "active";
+            return (
+              <div key={idx} className={`reasoning-step ${isActive ? "active" : "completed"}`}>
+                <span className="reasoning-step-icon">
+                  {isActive ? (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" style={{ animation: "spin 2.2s linear infinite" }}>
+                      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"></circle>
+                      <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeLinecap="round"></path>
+                    </svg>
+                  ) : (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  )}
+                </span>
+                <span className="reasoning-step-text">{step.text}</span>
+              </div>
+            );
+          })}
+        </div>
+
+        {tools.length > 0 && (
+          <div className="reasoning-tools-container">
+            {tools.map((tool) => (
+              <ToolBlock key={tool.id} tool={tool} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
