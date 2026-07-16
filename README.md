@@ -1,7 +1,7 @@
 # Inbox OS - AI Email Workspace Frontend
 
 > [!NOTE]
-> This React.js codebase is 100% AI-generated and migrated from the original static HTML/CSS/JS application.
+> This React.js codebase is 100% AI-generated.
 
 A production-grade, highly responsive, and modular React.js frontend migrated from a static HTML/CSS/JS single-page application (SPA). This application provides a premium minimal AI workspace for secure Google Gmail integration and email thread coordination.
 
