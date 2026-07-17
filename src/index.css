@@ -2169,6 +2169,12 @@ input, textarea, button {
     opacity: 0.45;
 }
 
+.reasoning-step.failed {
+    border-left-color: var(--color-error);
+    color: var(--color-error);
+    opacity: 0.9;
+}
+
 .reasoning-step-icon {
     display: flex;
     align-items: center;
@@ -2183,6 +2189,10 @@ input, textarea, button {
 
 .reasoning-step.completed .reasoning-step-icon {
     color: var(--color-success);
+}
+
+.reasoning-step.failed .reasoning-step-icon {
+    color: var(--color-error);
 }
 
 .reasoning-step-text {

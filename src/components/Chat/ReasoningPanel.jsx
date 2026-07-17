@@ -71,11 +71,20 @@ export default function ReasoningPanel({ message }) {
         </div>
         <div className="reasoning-steps">
           {steps.map((step, idx) => {
-            const isActive = step.status === "active";
+            const isLast = idx === steps.length - 1;
+            const isFailed = step.status === "failed" || (status === "failed" && isLast);
+            const isActive = step.status === "active" && !isFailed;
+            const stepClass = isFailed ? "failed" : (isActive ? "active" : "completed");
+
             return (
-              <div key={idx} className={`reasoning-step ${isActive ? "active" : "completed"}`}>
+              <div key={idx} className={`reasoning-step ${stepClass}`}>
                 <span className="reasoning-step-icon">
-                  {isActive ? (
+                  {isFailed ? (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  ) : isActive ? (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" style={{ animation: "spin 2.2s linear infinite" }}>
                       <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"></circle>
                       <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeLinecap="round"></path>

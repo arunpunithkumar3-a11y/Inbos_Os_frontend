@@ -58,9 +58,21 @@ export function WorkspaceProvider({ children }) {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("inbox_os_token", token);
       const decoded = decodeToken(token);
-      setUser(decoded);
+      if (decoded) {
+        localStorage.setItem("inbox_os_token", token);
+        setUser(decoded);
+      } else {
+        localStorage.removeItem("inbox_os_token");
+        localStorage.removeItem("inbox_os_refresh_token");
+        setToken(null);
+        setUser(null);
+        setGmailConnected(false);
+        setGmailEmail(null);
+        setThreads([]);
+        setCurrentThreadId(null);
+        setMessages([]);
+      }
     } else {
       localStorage.removeItem("inbox_os_token");
       localStorage.removeItem("inbox_os_refresh_token");
@@ -73,13 +85,6 @@ export function WorkspaceProvider({ children }) {
     }
   }, [token]);
 
-  useEffect(() => {
-    if (token) {
-      checkGmailConnection();
-      loadThreads();
-      checkOnboardingStatus();
-    }
-  }, [token]);
 
   const appendConsoleLog = (message, type = "info") => {
     console.log(`[Inbox OS: ${type}] > ${message}`);
@@ -294,6 +299,14 @@ export function WorkspaceProvider({ children }) {
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      checkGmailConnection();
+      loadThreads();
+      checkOnboardingStatus();
+    }
+  }, [token]);
+
   const processSSEStream = async (response, reasoningId, updateCallback, nextApprovalCallback) => {
     const reader = response.body.getReader();
     const decoder = new TextDecoder("utf-8");
@@ -477,7 +490,7 @@ export function WorkspaceProvider({ children }) {
             {
               id: Math.random().toString(),
               type: "agent",
-              content: `⚠️ **Error:** ${event.content}`,
+              content: "An error occurred. Please try again later.",
               isStreaming: false,
             },
           ]);
@@ -633,7 +646,7 @@ export function WorkspaceProvider({ children }) {
         console.log("Stream aborted");
         return;
       }
-      showToast(`Agent task failed: ${err.message}`, "error");
+      showToast("An error occurred. Please try again later.", "error");
       appendConsoleLog(`Agent execution error: ${err.message}`, "error");
 
       setMessages((prev) =>
@@ -644,7 +657,7 @@ export function WorkspaceProvider({ children }) {
         {
           id: Math.random().toString(),
           type: "agent",
-          content: `⚠️ **Error:** ${err.message || "Failed to connect. Please try again."}`,
+          content: "An error occurred. Please try again later.",
         },
       ]);
       setIsStreaming(false);
@@ -695,11 +708,19 @@ export function WorkspaceProvider({ children }) {
 
       await processSSEStream(res, reasoningId, null, null);
     } catch (err) {
-      showToast(`Error resuming: ${err.message}`, "error");
+      showToast("An error occurred. Please try again later.", "error");
       appendConsoleLog(`Resume request failed: ${err.message}`, "error");
       setMessages((prev) =>
         prev.map((m) => (m.id === reasoningId ? { ...m, status: "failed" } : m))
       );
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Math.random().toString(),
+          type: "agent",
+          content: "An error occurred. Please try again later.",
+        },
+      ]);
       setIsStreaming(false);
     }
   };
