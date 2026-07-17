@@ -7,30 +7,38 @@ export default function ApprovalCard({ message }) {
   const { id: approvalId, interruptVal, status } = message;
   const [isProcessing, setIsProcessing] = useState(null); 
 
-  if (!interruptVal) return null;
+  console.log("[HITL DEBUG] ApprovalCard rendering. Message:", message);
+
+  if (!interruptVal) {
+    console.warn("[HITL DEBUG] interruptVal is null/falsy");
+    return null;
+  }
 
   let parsedVal = interruptVal;
   if (typeof interruptVal === "string") {
     try {
       parsedVal = JSON.parse(interruptVal);
+      console.log("[HITL DEBUG] Parsed string interruptVal successfully:", parsedVal);
     } catch (e) {
-      console.error("Failed to parse string interruptVal:", e);
+      console.error("[HITL DEBUG] Failed to parse string interruptVal:", e);
       return null;
     }
   }
 
   if (!parsedVal || parsedVal.type !== "tool_approval") {
+    console.warn("[HITL DEBUG] parsedVal is null or type is not 'tool_approval':", parsedVal);
     return null;
   }
 
   const toolCalls = parsedVal.tool_calls || [];
 
   const handleChoice = async (approved) => {
+    console.log("[HITL DEBUG] handleChoice clicked. Approved:", approved, "ApprovalID:", approvalId);
     setIsProcessing(approved ? "approve" : "reject");
     try {
       await handleApprovalChoice(approvalId, approved);
     } catch (err) {
-      console.error(err);
+      console.error("[HITL DEBUG] handleChoice error:", err);
     } finally {
       setIsProcessing(null);
     }

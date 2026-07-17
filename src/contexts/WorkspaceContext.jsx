@@ -462,6 +462,7 @@ export function WorkspaceProvider({ children }) {
             }
           });
         } else if (event.type === "interrupt") {
+          console.log("[HITL DEBUG] Interrupt received. Event value:", event.value);
           streamStopped = true;
           showToast("Action approval required", "warning");
           appendConsoleLog("Agent requires action validation.", "warning");
@@ -666,8 +667,12 @@ export function WorkspaceProvider({ children }) {
   };
 
   const handleApprovalChoice = async (approvalId, approved) => {
+    console.log("[HITL DEBUG] handleApprovalChoice called. ID:", approvalId, "Approved:", approved, "CurrentThread:", currentThreadId);
     const currentToken = localStorage.getItem("inbox_os_token");
-    if (!currentToken) return;
+    if (!currentToken) {
+      console.warn("[HITL DEBUG] No token found in localStorage!");
+      return;
+    }
 
     setMessages((prev) =>
       prev.map((msg) => (msg.id === approvalId ? { ...msg, status: approved ? "approved" : "rejected" } : msg))
