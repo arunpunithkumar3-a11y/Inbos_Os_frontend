@@ -2074,70 +2074,76 @@ input, textarea, button {
    ========================================================================== */
 
 .reasoning-panel {
-    background-color: rgba(13, 14, 16, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 6px;
-    margin: 1rem 0;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    animation: fadeIn var(--t-normal) ease;
-    max-width: var(--viewport-max-width);
+    margin: 0.35rem 0 0.75rem 0;
     width: 100%;
+    max-width: var(--viewport-max-width);
 }
 
-.reasoning-header {
-    display: flex;
+.thinking-buffering-bar {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.6rem 0.85rem;
-    background-color: rgba(0, 0, 0, 0.12);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    padding: 0.2rem 0;
 }
 
-.reasoning-header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.reasoning-title {
-    font-family: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-}
-
-.pulse-indicator {
-    width: 5px;
-    height: 5px;
-    background-color: var(--accent-primary);
+.thinking-dot-pulse {
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    animation: slow-pulse 1.8s infinite ease-in-out;
+    background-color: var(--accent-primary);
+    animation: slow-pulse 1.4s infinite ease-in-out;
+    flex-shrink: 0;
 }
 
-.reasoning-panel.completed .pulse-indicator {
-    background-color: var(--color-success);
-    animation: none;
-}
-
-.reasoning-status-pill {
-    font-family: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
-    font-size: 0.625rem;
+.thinking-label {
     font-weight: 500;
-    color: var(--text-muted);
-    background-color: rgba(255, 255, 255, 0.02);
-    padding: 1px 6px;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    letter-spacing: 0.02em;
+    color: var(--text-primary);
 }
 
-.reasoning-panel.completed .reasoning-status-pill {
-    color: var(--color-success);
-    border-color: rgba(16, 185, 129, 0.15);
-    background-color: rgba(16, 185, 129, 0.03);
+.thinking-active-step {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.thinking-toggle-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+    padding: 0.2rem 0;
+    transition: color 0.15s ease;
+}
+
+.thinking-toggle-header:hover {
+    color: var(--text-secondary);
+}
+
+.thinking-toggle-title {
+    font-weight: 500;
+    font-size: 0.8125rem;
+}
+
+.thinking-chevron {
+    transition: transform 0.2s ease;
+    opacity: 0.7;
+}
+
+.thinking-chevron.open {
+    transform: rotate(180deg);
+}
+
+.thinking-accordion-body {
+    margin-top: 0.35rem;
+    padding-left: 0.5rem;
+    border-left: 1.5px solid rgba(255, 255, 255, 0.08);
 }
 
 .reasoning-steps {
