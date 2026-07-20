@@ -60,7 +60,7 @@ export default function ApprovalCard({ message }) {
       const args = call.args || {};
       let argsHtml = [];
 
-      if (baseToolName === "send_email" || baseToolName === "reply_to_email") {
+      if (baseToolName === "send_email" || baseToolName === "reply_to_email" || baseToolName === "create_draft") {
         const to = args.to || args.recipient || "N/A";
         const subject = args.subject || "N/A";
         let body = args.body || args.content || "";
@@ -83,6 +83,24 @@ export default function ApprovalCard({ message }) {
           </div>
         );
 
+        if (args.cc) {
+          argsHtml.push(
+            <div key="cc" className="hitl-arg-row">
+              <span className="hitl-arg-label">Cc:</span>
+              <span className="hitl-arg-value" style={{ fontFamily: "monospace" }}>{args.cc}</span>
+            </div>
+          );
+        }
+
+        if (args.bcc) {
+          argsHtml.push(
+            <div key="bcc" className="hitl-arg-row">
+              <span className="hitl-arg-label">Bcc:</span>
+              <span className="hitl-arg-value" style={{ fontFamily: "monospace" }}>{args.bcc}</span>
+            </div>
+          );
+        }
+
         if (body) {
           argsHtml.push(
             <div key="body" className="hitl-arg-row">
@@ -94,13 +112,30 @@ export default function ApprovalCard({ message }) {
             </div>
           );
         }
-      } else if (baseToolName === "trash_email" || baseToolName === "archive_email") {
+      } else if (baseToolName === "trash_email" || baseToolName === "archive_email" || baseToolName === "mark_as_read") {
         const messageId = args.message_id || args.email_id || "N/A";
         argsHtml.push(
           <div key="msgId" className="hitl-arg-row">
             <span className="hitl-arg-label">Email ID:</span>
             <span className="hitl-arg-value" style={{ fontFamily: "monospace", color: "var(--accent-pink)" }}>
               {messageId}
+            </span>
+          </div>
+        );
+      } else if (baseToolName === "add_label" || baseToolName === "remove_label") {
+        const messageId = args.message_id || args.email_id || "N/A";
+        const labelName = args.label_name || args.label_id || "N/A";
+        argsHtml.push(
+          <div key="msgId" className="hitl-arg-row">
+            <span className="hitl-arg-label">Email ID:</span>
+            <span className="hitl-arg-value" style={{ fontFamily: "monospace", color: "var(--accent-pink)" }}>
+              {messageId}
+            </span>
+          </div>,
+          <div key="label" className="hitl-arg-row">
+            <span className="hitl-arg-label">Label:</span>
+            <span className="hitl-arg-value" style={{ fontWeight: 600, color: "var(--accent-primary)" }}>
+              {labelName}
             </span>
           </div>
         );
@@ -122,6 +157,14 @@ export default function ApprovalCard({ message }) {
       else if (baseToolName === "reply_to_email") readableToolName = "Reply to Email";
       else if (baseToolName === "trash_email") readableToolName = "Move to Trash";
       else if (baseToolName === "archive_email") readableToolName = "Archive Email";
+      else if (baseToolName === "mark_as_read") readableToolName = "Mark as Read";
+      else if (baseToolName === "create_draft") readableToolName = "Create Email Draft";
+      else if (baseToolName === "add_label") readableToolName = "Add Label to Email";
+      else if (baseToolName === "remove_label") readableToolName = "Remove Label from Email";
+      else if (baseToolName === "list_labels") readableToolName = "List Gmail Labels";
+      else if (baseToolName === "get_email_stats") readableToolName = "Get Mailbox Telemetry";
+      else if (baseToolName === "read_emails") readableToolName = "Read Emails";
+      else if (baseToolName === "search_emails") readableToolName = "Search Emails";
 
       return (
         <div key={idx} className="hitl-tool-call">

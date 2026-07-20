@@ -38,8 +38,8 @@ export default function SkillsModal() {
         </div>
         <div className="settings-body" style={{ maxHeight: "58vh", overflowY: "auto", display: "flex", flexDirection: "column", gap: "1.5rem", paddingRight: "4px" }}>
           <div className="settings-section">
-            <h4 class="settings-section-title">Core Capabilities</h4>
-            <p class="settings-section-desc">Inbox OS is equipped with standard Gmail and tool integration skillsets:</p>
+            <h4 className="settings-section-title">Core Capabilities</h4>
+            <p className="settings-section-desc">Inbox OS is equipped with standard Gmail and tool integration skillsets:</p>
 
             <div className="skills-grid">
               <div className="skill-card">
@@ -109,8 +109,8 @@ export default function SkillsModal() {
           </div>
 
           <div className="settings-section border-top">
-            <h4 class="settings-section-title">Safety & Confidence Protocol</h4>
-            <p class="settings-section-desc">Inbox OS utilizes advanced multi-agent governance to ensure safety and precision:</p>
+            <h4 className="settings-section-title">Safety & Confidence Protocol</h4>
+            <p className="settings-section-desc">Inbox OS utilizes advanced multi-agent governance to ensure safety and precision:</p>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "0.75rem" }}>
               <div className="protocol-row">
                 <span className="protocol-badge shield">Action Gateway</span>

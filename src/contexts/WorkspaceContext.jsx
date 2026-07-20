@@ -326,10 +326,18 @@ export function WorkspaceProvider({ children }) {
     };
 
     const toolNames = {
-      send_email: "Drafting email response...",
+      send_email: "Drafting & sending email...",
       reply_to_email: "Replying to thread...",
       trash_email: "Moving email to trash...",
       archive_email: "Archiving thread...",
+      mark_as_read: "Marking email as read...",
+      read_emails: "Reading email content...",
+      search_emails: "Searching email messages...",
+      add_label: "Applying label to email...",
+      remove_label: "Removing label from email...",
+      list_labels: "Listing Gmail labels...",
+      create_draft: "Creating email draft...",
+      get_email_stats: "Gathering mailbox telemetry & statistics...",
     };
 
     const updateReasoningStep = (updates) => {

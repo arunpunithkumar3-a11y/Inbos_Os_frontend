@@ -1,9 +1,10 @@
 
 export const API_BASE =
+  window.location.hostname === "inboxos-ai.onrender.com" ||
   window.location.hostname === "inbox-os-ai.onrender.com" ||
   window.location.port === "8000"
     ? window.location.origin
-    : "http://127.0.0.1:8000";
+    : "https://inboxos-ai.onrender.com";
 
 export function decodeToken(token) {
   if (!token) return null;
@@ -56,6 +57,9 @@ export async function refreshAccessToken() {
       if (data && data.access_token) {
         console.log("Token refresh successful!");
         localStorage.setItem("inbox_os_token", data.access_token);
+        if (data.refresh_token) {
+          localStorage.setItem("inbox_os_refresh_token", data.refresh_token);
+        }
         return data.access_token;
       }
     }

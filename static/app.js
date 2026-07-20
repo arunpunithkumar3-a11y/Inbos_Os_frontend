@@ -11,9 +11,9 @@
     // Automatically detect backend port.
     // If the frontend is loaded from the backend itself (port 8000 OR if on a production server), use relative paths (origin).
     // Otherwise (e.g. running standalone or via file:// protocol), point to the deployed Render URL.
-    const API_BASE = (window.location.hostname === 'inbox-os-ai.onrender.com' || window.location.port === '8000')
+    const API_BASE = (window.location.hostname === 'inboxos-ai.onrender.com' || window.location.hostname === 'inbox-os-ai.onrender.com' || window.location.port === '8000')
         ? window.location.origin
-        : 'https://inbox-os-ai.onrender.com';
+        : 'https://inboxos-ai.onrender.com';
 
 
     const state = {
