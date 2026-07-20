@@ -864,42 +864,31 @@
         // Append Reasoning Panel
         const reasoningPanelId = 'reasoning-' + Math.random().toString(36).substring(2, 11);
         const reasoningRow = document.createElement('div');
-        reasoningRow.className = 'message-row agent';
+        reasoningRow.className = 'message-row agent simple-thinking-row';
         reasoningRow.id = reasoningPanelId + '-row';
         
         const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
+        avatar.className = 'message-avatar thinking-avatar';
         avatar.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: block;">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="M22 6l-10 7L2 6"></path>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="thinking-sparkle">
+                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
             </svg>
         `;
         reasoningRow.appendChild(avatar);
         
         const reasoningPanel = document.createElement('div');
-        reasoningPanel.className = 'reasoning-panel';
+        reasoningPanel.className = 'simple-thinking-bubble';
         reasoningPanel.id = reasoningPanelId;
         reasoningPanel.innerHTML = `
-            <div class="reasoning-header">
-                <div class="reasoning-header-left">
-                    <span class="pulse-indicator"></span>
-                    <span class="reasoning-title">Reasoning trace</span>
-                </div>
-                <span class="reasoning-status-pill">Thinking...</span>
-            </div>
-            <div class="reasoning-steps" id="${reasoningPanelId}-steps">
-                <div class="reasoning-step active" id="${reasoningPanelId}-step-init">
-                    <span class="reasoning-step-icon">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" style="animation: spin 2.2s linear infinite;">
-                            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"></circle>
-                            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-linecap="round"></path>
-                        </svg>
-                    </span>
-                    <span class="reasoning-step-text">Contextualizing conversation workspace...</span>
+            <div class="simple-thinking-content">
+                <span class="thinking-shimmer-text" id="${reasoningPanelId}-active-text">Thinking...</span>
+                <div class="simple-buffering-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
-            <div class="reasoning-tools-container hidden" id="${reasoningPanelId}-tools"></div>
+            <div class="simple-thinking-steps-drawer hidden" id="${reasoningPanelId}-steps"></div>
         `;
         
         reasoningRow.appendChild(reasoningPanel);
@@ -1118,25 +1107,17 @@
 
         function appendActiveStep(text) {
             if (!isPanelMode) return;
+            const activeTextEl = document.getElementById(`${reasoningPanelId}-active-text`);
+            if (activeTextEl) {
+                activeTextEl.textContent = text;
+            }
             const stepsContainer = document.getElementById(`${reasoningPanelId}-steps`);
-            if (!stepsContainer) return;
-            
-            markLastStepCompleted();
-            
-            const stepId = 'step-' + Math.random().toString(36).substring(2, 9);
-            const step = document.createElement('div');
-            step.className = 'reasoning-step active';
-            step.id = stepId;
-            step.innerHTML = `
-                <span class="reasoning-step-icon">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" style="animation: spin 2.2s linear infinite;">
-                        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"></circle>
-                        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-linecap="round"></path>
-                    </svg>
-                </span>
-                <span class="reasoning-step-text">${text}</span>
-            `;
-            stepsContainer.appendChild(step);
+            if (stepsContainer) {
+                const step = document.createElement('div');
+                step.className = 'simple-step-item active';
+                step.innerHTML = `<span class="step-bullet">•</span><span class="step-text">${text}</span>`;
+                stepsContainer.appendChild(step);
+            }
             scrollToBottom();
         }
 
@@ -1162,13 +1143,8 @@
             
             // Mark last active step completed on stream termination
             if (isPanelMode) {
-                markLastStepCompleted();
-                const panel = document.getElementById(reasoningPanelId);
-                if (panel) {
-                    panel.classList.add('completed');
-                    const pill = panel.querySelector('.reasoning-status-pill');
-                    if (pill) pill.textContent = 'Completed';
-                }
+                const row = document.getElementById(reasoningPanelId + '-row');
+                if (row) row.remove();
             }
             
             if (onComplete && !streamStopped) {
@@ -1569,42 +1545,31 @@
                     // Append Resumed Reasoning Panel
                     const reasoningPanelId = 'reasoning-' + Math.random().toString(36).substring(2, 11);
                     const reasoningRow = document.createElement('div');
-                    reasoningRow.className = 'message-row agent';
+                    reasoningRow.className = 'message-row agent simple-thinking-row';
                     reasoningRow.id = reasoningPanelId + '-row';
                     
                     const avatar = document.createElement('div');
-                    avatar.className = 'message-avatar';
+                    avatar.className = 'message-avatar thinking-avatar';
                     avatar.innerHTML = `
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: block;">
-                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                            <path d="M22 6l-10 7L2 6"></path>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="thinking-sparkle">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
                         </svg>
                     `;
                     reasoningRow.appendChild(avatar);
                     
                     const reasoningPanel = document.createElement('div');
-                    reasoningPanel.className = 'reasoning-panel';
+                    reasoningPanel.className = 'simple-thinking-bubble';
                     reasoningPanel.id = reasoningPanelId;
                     reasoningPanel.innerHTML = `
-                        <div class="reasoning-header">
-                            <div class="reasoning-header-left">
-                                <span class="pulse-indicator"></span>
-                                <span class="reasoning-title">Reasoning trace</span>
-                            </div>
-                            <span class="reasoning-status-pill">Thinking...</span>
-                        </div>
-                        <div class="reasoning-steps" id="${reasoningPanelId}-steps">
-                            <div class="reasoning-step active" id="${reasoningPanelId}-step-init">
-                                <span class="reasoning-step-icon">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" style="animation: spin 2.2s linear infinite;">
-                                        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"></circle>
-                                        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-linecap="round"></path>
-                                    </svg>
-                                </span>
-                                <span class="reasoning-step-text">Resuming agent execution node...</span>
+                        <div class="simple-thinking-content">
+                            <span class="thinking-shimmer-text" id="${reasoningPanelId}-active-text">Resuming agent execution...</span>
+                            <div class="simple-buffering-dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
                             </div>
                         </div>
-                        <div class="reasoning-tools-container hidden" id="${reasoningPanelId}-tools"></div>
+                        <div class="simple-thinking-steps-drawer hidden" id="${reasoningPanelId}-steps"></div>
                     `;
                     
                     reasoningRow.appendChild(reasoningPanel);
