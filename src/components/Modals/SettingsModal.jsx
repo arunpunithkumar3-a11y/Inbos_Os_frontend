@@ -12,6 +12,8 @@ export default function SettingsModal() {
     setTourStep,
     showToast,
     appendConsoleLog,
+    setPrivacyModalOpen,
+    setTermsModalOpen,
   } = useWorkspace();
 
   const [localEnableToasts, setLocalEnableToasts] = useState(enableToasts);
@@ -83,8 +85,8 @@ export default function SettingsModal() {
           </div>
 
           <div className="settings-section border-top" style={{ marginTop: "1.5rem", paddingTop: "1.5rem" }}>
-            <h4 class="settings-section-title">Help & Onboarding</h4>
-            <p class="settings-section-desc">Need assistance or want to review the workspace features?</p>
+            <h4 className="settings-section-title">Help & Onboarding</h4>
+            <p className="settings-section-desc">Need assistance or want to review the workspace features?</p>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.75rem" }}>
               <span className="toggle-title" style={{ fontSize: "0.875rem", fontWeight: 500, color: "var(--text-secondary)" }}>
                 Interactive Guided Tour
@@ -95,6 +97,27 @@ export default function SettingsModal() {
                 onClick={handleRestartTour}
               >
                 Restart Tutorial
+              </button>
+            </div>
+          </div>
+
+          <div className="settings-section border-top" style={{ marginTop: "1.5rem", paddingTop: "1.5rem" }}>
+            <h4 className="settings-section-title">Legal & Compliance</h4>
+            <p className="settings-section-desc">Review application terms, user responsibilities, and data privacy policies.</p>
+            <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+              <button
+                className="btn btn-secondary"
+                style={{ fontSize: "0.75rem", padding: "0.35rem 0.75rem" }}
+                onClick={() => { setSettingsOpen(false); setPrivacyModalOpen(true); }}
+              >
+                Privacy Policy
+              </button>
+              <button
+                className="btn btn-secondary"
+                style={{ fontSize: "0.75rem", padding: "0.35rem 0.75rem" }}
+                onClick={() => { setSettingsOpen(false); setTermsModalOpen(true); }}
+              >
+                Terms and Conditions
               </button>
             </div>
           </div>

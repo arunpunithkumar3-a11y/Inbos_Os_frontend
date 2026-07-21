@@ -13,11 +13,7 @@ export default function Sidebar() {
       {}
       <div className="sidebar-header">
         <div className="logo-group">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: "var(--accent-primary)" }}>
-            <rect width="24" height="24" rx="5" fill="currentColor"/>
-            <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <img src="/logo.png" alt="Inbox OS" className="sidebar-logo-img" />
           <div>
             <span className="sidebar-logo-text">Inbox OS</span>
           </div>

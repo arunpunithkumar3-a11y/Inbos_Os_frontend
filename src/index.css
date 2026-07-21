@@ -2843,13 +2843,176 @@ input, textarea, button {
     color: #FFFFFF;
 }
 
-.tour-btn-next {
-    background: var(--accent-primary);
-    color: #FFFFFF;
-}
-
 .tour-btn-next:hover {
     background: var(--accent-primary-hover);
 }
+
+/* ==========================================================================
+   Brand Logo & Legal Modals Extensions
+   ========================================================================== */
+
+.auth-brand-logo-img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25), 0 4px 12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-brand-logo-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.4), 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.sidebar-logo-img {
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.welcome-logo-img {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.3), 0 8px 24px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    animation: float 4s ease-in-out infinite;
+}
+
+.modal-header-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Auth Footer Legal Links */
+.auth-footer-legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-legal-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    padding: 0;
+}
+
+.auth-legal-link:hover {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
+.auth-legal-dot {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    opacity: 0.5;
+}
+
+/* Legal Modal Styling */
+.legal-modal-card {
+    max-width: 640px !important;
+    width: 92% !important;
+}
+
+.legal-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.legal-modal-body {
+    max-height: 62vh;
+    overflow-y: auto;
+    padding-right: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.legal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.legal-section h4 {
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.legal-section p {
+    font-size: 0.835rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.legal-section ul {
+    margin: 0.25rem 0 0.25rem 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.legal-section li {
+    font-size: 0.835rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+
+.legal-note {
+    font-size: 0.8rem !important;
+    font-style: italic;
+    color: var(--text-muted) !important;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid var(--accent-primary);
+    padding: 0.4rem 0.6rem;
+    border-radius: 0 4px 4px 0;
+    margin-top: 0.25rem !important;
+}
+
+.legal-highlight {
+    font-size: 0.825rem !important;
+    font-weight: 500;
+    color: #38bdf8 !important;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    margin-top: 0.25rem !important;
+}
+
+.legal-link {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    transition: color 0.15s ease;
+}
+
+.legal-link:hover {
+    color: var(--accent-primary-hover);
+}
+
 
 

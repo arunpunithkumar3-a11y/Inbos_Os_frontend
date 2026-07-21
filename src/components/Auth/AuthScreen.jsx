@@ -4,7 +4,7 @@ import { useWorkspace } from "../../contexts/WorkspaceContext";
 import { apiRequest } from "../../services/api";
 
 export default function AuthScreen() {
-  const { handleAuthSuccess } = useWorkspace();
+  const { handleAuthSuccess, setPrivacyModalOpen, setTermsModalOpen } = useWorkspace();
 
   const [mode, setMode] = useState("login"); 
   const [email, setEmail] = useState("");
@@ -76,14 +76,10 @@ export default function AuthScreen() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="brand-logo">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="24" height="24" rx="5" fill="currentColor"/>
-              <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <img src="/logo.png" alt="Inbox OS Logo" className="auth-brand-logo-img" />
           </div>
           <h1 className="brand-name">Inbox OS</h1>
-          <p className="brand-subtitle">Minimal AI Email Workspace</p>
+          <p className="brand-subtitle">AI Powered Email OS</p>
         </div>
 
         {}
@@ -202,6 +198,24 @@ export default function AuthScreen() {
             </p>
           </form>
         )}
+
+        <div className="auth-footer-legal">
+          <button
+            type="button"
+            className="auth-legal-link"
+            onClick={() => setPrivacyModalOpen(true)}
+          >
+            Privacy Policy
+          </button>
+          <span className="auth-legal-dot">•</span>
+          <button
+            type="button"
+            className="auth-legal-link"
+            onClick={() => setTermsModalOpen(true)}
+          >
+            Terms & Conditions
+          </button>
+        </div>
       </div>
     </div>
   );

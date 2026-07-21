@@ -44,6 +44,8 @@ export function WorkspaceProvider({ children }) {
   const [skillsOpen, setSkillsOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
 
   const [attachments, setAttachments] = useState([]);
 
@@ -847,6 +849,10 @@ export function WorkspaceProvider({ children }) {
         setCommandPaletteOpen,
         sidebarOpen,
         setSidebarOpen,
+        privacyModalOpen,
+        setPrivacyModalOpen,
+        termsModalOpen,
+        setTermsModalOpen,
 
         attachments,
         addAttachment,

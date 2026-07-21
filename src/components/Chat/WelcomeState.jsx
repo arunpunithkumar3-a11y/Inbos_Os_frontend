@@ -3,7 +3,7 @@ import React from "react";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 
 export default function WelcomeState() {
-  const { gmailConnected, setSkillsOpen, sendMessage, isStreaming } = useWorkspace();
+  const { gmailConnected, setSkillsOpen, sendMessage, isStreaming, setPrivacyModalOpen, setTermsModalOpen } = useWorkspace();
 
   const suggestions = [
     {
@@ -54,27 +54,39 @@ export default function WelcomeState() {
     <div id="welcome-state" className="welcome-container">
       <div className="welcome-branding">
         <div className="big-logo-ring">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="5" fill="currentColor"/>
-            <path d="M4.5 7.5L12 12.5L19.5 7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M4.5 7.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V7.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <img src="/logo.png" alt="Inbox OS Logo" className="welcome-logo-img" />
         </div>
         <h2 className="welcome-title">Inbox OS Workspace</h2>
         <p className="welcome-subtitle">
-          Ask questions, search details, or draft replies. I have complete access to your Google Gmail.
+          Ask questions, search details, or draft replies. AI-powered workspace for your Google Gmail.
         </p>
-        <button
-          id="btn-view-capabilities"
-          className="btn btn-secondary"
-          style={{ marginTop: "0.75rem", gap: "0.35rem" }}
-          onClick={() => setSkillsOpen(true)}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-          </svg>
-          Explore AI Capabilities & Skills
-        </button>
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center", marginTop: "0.75rem" }}>
+          <button
+            id="btn-view-capabilities"
+            className="btn btn-secondary"
+            style={{ gap: "0.35rem" }}
+            onClick={() => setSkillsOpen(true)}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+            Explore AI Capabilities
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ gap: "0.35rem", fontSize: "0.8rem", opacity: 0.85 }}
+            onClick={() => setPrivacyModalOpen(true)}
+          >
+            Privacy Policy
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ gap: "0.35rem", fontSize: "0.8rem", opacity: 0.85 }}
+            onClick={() => setTermsModalOpen(true)}
+          >
+            Terms & Conditions
+          </button>
+        </div>
       </div>
 
       {!gmailConnected && (
