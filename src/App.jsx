@@ -14,6 +14,8 @@ import OnboardingTour from "./components/Common/OnboardingTour";
 import Toast from "./components/Common/Toast";
 import CustomDialog from "./components/Common/CustomDialog";
 
+import GlobalBackground from "./components/Common/GlobalBackground";
+
 import "./index.css";
 
 /* ─── Protected App Workspace (/app) ──────────────────────────────────────── */
@@ -63,6 +65,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <WorkspaceProvider>
+        <GlobalBackground />
         <Routes>
           {/* Public landing page — always accessible */}
           <Route path="/" element={<LandingRoute />} />

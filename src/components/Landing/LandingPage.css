@@ -10,7 +10,7 @@
 .landing-root {
   width: 100%;
   min-height: 100vh;
-  background-color: #090A0C;
+  background-color: transparent;
   color: #F1F5F9;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-x: hidden;

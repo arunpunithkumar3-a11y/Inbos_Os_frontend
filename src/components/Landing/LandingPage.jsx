@@ -27,13 +27,6 @@ export default function LandingPage() {
 
       {/* ── Hero / Explanation Section ─────────────────────────────── */}
       <section className="lp-hero" aria-labelledby="hero-heading">
-        <div className="lp-hero-bg" aria-hidden="true">
-          <div className="lp-hero-orb lp-hero-orb-1" />
-          <div className="lp-hero-orb lp-hero-orb-2" />
-          <div className="lp-hero-orb lp-hero-orb-3" />
-          <div className="lp-hero-grid" />
-        </div>
-
         <div className="lp-hero-content">
           <div className="lp-hero-badge" aria-label="App status">
             <span className="lp-hero-badge-dot" aria-hidden="true" />
