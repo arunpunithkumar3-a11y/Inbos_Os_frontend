@@ -1,8 +1,4 @@
 {
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
   "rewrites": [
     { "source": "/privacy-policy.html", "destination": "/privacy-policy.html" },
     { "source": "/terms-and-conditions.html", "destination": "/terms-and-conditions.html" },
