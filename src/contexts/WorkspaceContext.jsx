@@ -87,6 +87,27 @@ export function WorkspaceProvider({ children }) {
     }
   }, [token]);
 
+  useEffect(() => {
+    const handleUrlRoute = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      
+      if (path.includes("privacy") || hash.includes("privacy")) {
+        setPrivacyModalOpen(true);
+      } else if (path.includes("terms") || hash.includes("terms")) {
+        setTermsModalOpen(true);
+      }
+    };
+
+    handleUrlRoute();
+    window.addEventListener("hashchange", handleUrlRoute);
+    window.addEventListener("popstate", handleUrlRoute);
+    return () => {
+      window.removeEventListener("hashchange", handleUrlRoute);
+      window.removeEventListener("popstate", handleUrlRoute);
+    };
+  }, []);
+
 
   const appendConsoleLog = (message, type = "info") => {
     console.log(`[Inbox OS: ${type}] > ${message}`);
