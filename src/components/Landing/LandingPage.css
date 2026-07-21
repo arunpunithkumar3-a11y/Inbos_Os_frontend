@@ -1,0 +1,937 @@
+/* ==========================================================================
+   INBOX-OS LANDING PAGE — GOOGLE OAUTH COMPLIANCE REDESIGN
+   Modern SaaS landing page, fully scrollable, no login required
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Layout & Body Override
+   -------------------------------------------------------------------------- */
+
+.landing-root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #090A0C;
+  color: #F1F5F9;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation Bar
+   -------------------------------------------------------------------------- */
+
+.lp-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(2rem, calc((100% - 1200px) / 2 + 2rem));
+  height: 64px;
+  background: rgba(9, 10, 12, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s ease;
+}
+
+.lp-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.lp-nav-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lp-nav-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.lp-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.lp-nav-link {
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.lp-nav-link:hover {
+  color: #F1F5F9;
+}
+
+.lp-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: #6366F1;
+  color: #FFFFFF;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.lp-nav-cta:hover {
+  background: #4F46E5;
+  transform: translateY(-1px);
+}
+
+.lp-nav-mobile-cta {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Shared Section Wrapper
+   -------------------------------------------------------------------------- */
+
+.lp-section {
+  width: 100%;
+  padding: 7rem max(2rem, calc((100% - 1200px) / 2 + 2rem));
+}
+
+.lp-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Section Labels
+   -------------------------------------------------------------------------- */
+
+.lp-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #818CF8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.875rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+
+.lp-section-heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.lp-section-subheading {
+  font-size: 1.0625rem;
+  color: #94A3B8;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* --------------------------------------------------------------------------
+   HERO SECTION
+   -------------------------------------------------------------------------- */
+
+.lp-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+  overflow: hidden;
+}
+
+/* Animated gradient orbs */
+.lp-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lp-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.lp-hero-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #6366F1 0%, transparent 70%);
+  top: -200px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.lp-hero-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8B5CF6 0%, transparent 70%);
+  top: -100px;
+  right: -150px;
+  animation-delay: -3s;
+}
+
+.lp-hero-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #06B6D4 0%, transparent 70%);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.2;
+  animation-delay: -5s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -30px) scale(1.05); }
+  66% { transform: translate(-15px, 20px) scale(0.97); }
+}
+
+/* Grid overlay */
+.lp-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+}
+
+.lp-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+}
+
+.lp-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #A5B4FC;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6366F1;
+  box-shadow: 0 0 8px #6366F1;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #6366F1; }
+  50% { opacity: 0.5; box-shadow: 0 0 14px #6366F1; }
+}
+
+.lp-hero-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-hero-title-accent {
+  background: linear-gradient(135deg, #818CF8 0%, #C084FC 50%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lp-hero-tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  color: #94A3B8;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-hero-description {
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  color: #64748B;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  animation: fadeInUp 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-hero-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  background: #6366F1;
+  color: #FFFFFF;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+}
+
+.lp-btn-primary:hover {
+  background: #4F46E5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.35);
+}
+
+.lp-btn-primary:active {
+  transform: translateY(0);
+}
+
+.lp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: #F1F5F9;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.lp-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Google icon in button */
+.lp-google-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.lp-hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: fadeIn 1.2s 1s both;
+}
+
+.lp-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #475569, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   FEATURES SECTION
+   -------------------------------------------------------------------------- */
+
+.lp-features {
+  background: linear-gradient(180deg, transparent 0%, rgba(99,102,241,0.03) 50%, transparent 100%);
+}
+
+.lp-features-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.lp-features-header .lp-section-subheading {
+  margin: 0 auto;
+}
+
+.lp-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.lp-feature-card {
+  position: relative;
+  padding: 2rem;
+  background: rgba(17, 18, 21, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.3s,
+              box-shadow 0.3s;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.lp-feature-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+              transform 0.6s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.3s,
+              box-shadow 0.3s;
+}
+
+.lp-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(99,102,241,0.1);
+}
+
+/* Shimmer highlight on hover */
+.lp-feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99,102,241,0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.lp-feature-card:hover::before {
+  opacity: 1;
+}
+
+.lp-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  font-size: 1.375rem;
+}
+
+.lp-feature-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.625rem;
+  letter-spacing: -0.01em;
+}
+
+.lp-feature-card-desc {
+  font-size: 0.875rem;
+  color: #64748B;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   WHY GMAIL ACCESS SECTION
+   -------------------------------------------------------------------------- */
+
+.lp-gmail-access {
+  background: rgba(17, 18, 21, 0.5);
+}
+
+.lp-gmail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.lp-gmail-content {}
+
+.lp-gmail-permissions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.lp-permission-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.lp-permission-row.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.lp-permission-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10B981;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.lp-permission-text {
+  font-size: 0.9375rem;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+.lp-permission-text strong {
+  color: #F1F5F9;
+  font-weight: 500;
+}
+
+.lp-gmail-guarantee {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.lp-guarantee-icon {
+  font-size: 1.375rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.lp-guarantee-text {
+  font-size: 0.9375rem;
+  color: #34D399;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.lp-guarantee-text em {
+  display: block;
+  font-style: normal;
+  color: #6EE7B7;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  margin-top: 0.25rem;
+  color: #64748B;
+}
+
+/* Visual card on right side */
+.lp-gmail-visual {
+  position: relative;
+}
+
+.lp-gmail-card {
+  background: rgba(17, 18, 21, 0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-gmail-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+}
+
+.lp-gmail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.lp-gmail-card-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(99,102,241,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+}
+
+.lp-gmail-card-title {
+  font-weight: 600;
+  color: #FFFFFF;
+  font-size: 0.9375rem;
+}
+
+.lp-gmail-card-sub {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 0.125rem;
+}
+
+.lp-oauth-scope {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.lp-scope-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.lp-scope-icon {
+  font-size: 0.875rem;
+}
+
+.lp-scope-text {
+  font-size: 0.8125rem;
+  color: #94A3B8;
+}
+
+.lp-scope-consent {
+  margin-top: 1.25rem;
+  padding: 0.875rem;
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  color: #818CF8;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   SECURITY SECTION
+   -------------------------------------------------------------------------- */
+
+.lp-security {
+  position: relative;
+}
+
+.lp-security-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.lp-security-header .lp-section-subheading {
+  margin: 0 auto;
+}
+
+.lp-security-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.lp-security-card {
+  padding: 2rem;
+  background: rgba(17, 18, 21, 0.6);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.lp-security-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lp-security-card:hover {
+  border-color: rgba(99,102,241,0.2);
+  background: rgba(99,102,241,0.04);
+}
+
+.lp-security-icon {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.lp-security-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.625rem;
+}
+
+.lp-security-desc {
+  font-size: 0.875rem;
+  color: #64748B;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   CTA BAND
+   -------------------------------------------------------------------------- */
+
+.lp-cta-band {
+  position: relative;
+  text-align: center;
+  padding: 6rem max(2rem, calc((100% - 1200px) / 2 + 2rem));
+  overflow: hidden;
+}
+
+.lp-cta-band-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 100% at 50% 50%, rgba(99,102,241,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.lp-cta-band-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.lp-cta-band-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.lp-cta-band-sub {
+  font-size: 1rem;
+  color: #64748B;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+
+.lp-footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2.5rem max(2rem, calc((100% - 1200px) / 2 + 2rem));
+}
+
+.lp-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.lp-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.lp-footer-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+  opacity: 0.7;
+}
+
+.lp-footer-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #64748B;
+}
+
+.lp-footer-copy {
+  font-size: 0.8125rem;
+  color: #475569;
+}
+
+.lp-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.lp-footer-link {
+  font-size: 0.8125rem;
+  color: #64748B;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.lp-footer-link:hover {
+  color: #F1F5F9;
+}
+
+/* --------------------------------------------------------------------------
+   ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .lp-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lp-gmail-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .lp-gmail-visual {
+    display: none;
+  }
+
+  .lp-security-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .lp-nav-links {
+    display: none;
+  }
+
+  .lp-nav-mobile-cta {
+    display: inline-flex;
+  }
+
+  .lp-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-security-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .lp-hero-title {
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+  }
+
+  .lp-section {
+    padding: 5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lp-hero-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .lp-btn-primary,
+  .lp-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

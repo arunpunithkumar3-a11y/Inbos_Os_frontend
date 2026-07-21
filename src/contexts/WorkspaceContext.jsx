@@ -23,7 +23,7 @@ export function WorkspaceProvider({ children }) {
   const [threads, setThreads] = useState([]);
   const [currentThreadId, setCurrentThreadId] = useState(null);
   const [currentThreadTitle, setCurrentThreadTitle] = useState("New Conversation");
-  const [currentThreadStatus, setCurrentThreadStatus] = useState("Inbox OS is ready");
+  const [currentThreadStatus, setCurrentThreadStatus] = useState("Inbox-Os is ready");
   const [messages, setMessages] = useState([]); 
   const [isThreadsLoading, setIsThreadsLoading] = useState(false);
 
@@ -110,7 +110,7 @@ export function WorkspaceProvider({ children }) {
 
 
   const appendConsoleLog = (message, type = "info") => {
-    console.log(`[Inbox OS: ${type}] > ${message}`);
+    console.log(`[Inbox-Os: ${type}] > ${message}`);
     const now = new Date();
     const timeStr = now.toTimeString().split(" ")[0];
     setConsoleLogs((prev) => [
@@ -152,7 +152,7 @@ export function WorkspaceProvider({ children }) {
       localStorage.setItem("inbox_os_refresh_token", refreshToken);
     }
     setToken(accessToken);
-    showToast(isSignup ? "Account created successfully! Please sign in." : "Welcome back to Inbox OS!", "success");
+    showToast(isSignup ? "Account created successfully! Please sign in." : "Welcome back to Inbox-Os!", "success");
     appendConsoleLog(isSignup ? "New profile registered." : "User authenticated successfully.", "success");
   };
 
@@ -164,7 +164,7 @@ export function WorkspaceProvider({ children }) {
   const handleLogout = async () => {
     const approved = await showDialog({
       title: "Sign Out Profile",
-      description: "Are you sure you want to sign out of Inbox OS? Your active session credentials will be cleared.",
+      description: "Are you sure you want to sign out of Inbox-Os? Your active session credentials will be cleared.",
       variant: "warning",
       confirmText: "Sign Out",
       cancelText: "Cancel",
@@ -172,7 +172,7 @@ export function WorkspaceProvider({ children }) {
 
     if (approved) {
       setToken(null);
-      showToast("Signed out of Inbox OS", "info");
+      showToast("Signed out of Inbox-Os", "info");
       appendConsoleLog("Session terminated.", "info");
     }
   };
@@ -224,7 +224,7 @@ export function WorkspaceProvider({ children }) {
     setCurrentThreadId(null);
     setIsStreaming(false);
     setCurrentThreadTitle("New Conversation");
-    setCurrentThreadStatus("Inbox OS is ready");
+    setCurrentThreadStatus("Inbox-Os is ready");
     setMessages([]);
     setAttachments([]);
     appendConsoleLog("New conversation session active.", "info");
@@ -812,14 +812,14 @@ export function WorkspaceProvider({ children }) {
   const skipTour = () => {
     setTourActive(false);
     saveOnboardingCompletion();
-    showToast("Tour skipped. Welcome to Inbox OS!", "success");
+    showToast("Tour skipped. Welcome to Inbox-Os!", "success");
     appendConsoleLog("Guided onboarding tour skipped by user.", "info");
   };
 
   const finishTour = () => {
     setTourActive(false);
     saveOnboardingCompletion();
-    showToast("Workspace guide completed! Enjoy Inbox OS.", "success");
+    showToast("Workspace guide completed! Enjoy Inbox-Os.", "success");
     appendConsoleLog("Guided onboarding tour finished successfully.", "success");
   };
 

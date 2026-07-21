@@ -1,11 +1,13 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 import { apiRequest } from "../../services/api";
 
 export default function AuthScreen() {
   const { handleAuthSuccess, setPrivacyModalOpen, setTermsModalOpen } = useWorkspace();
+  const navigate = useNavigate();
 
   const [mode, setMode] = useState("login"); 
   const [email, setEmail] = useState("");
@@ -30,6 +32,7 @@ export default function AuthScreen() {
       });
 
       handleAuthSuccess(data.access_token, data.refresh_token, false);
+      navigate("/app", { replace: true });
     } catch (err) {
       setError(err.message || "Failed to sign in. Please try again.");
     } finally {
@@ -59,6 +62,7 @@ export default function AuthScreen() {
       setError("");
       setMode("login");
       handleAuthSuccess("", "", true);
+      // After signup, stay on login page so user can sign in
     } catch (err) {
       setError(err.message || "Failed to create account. Please try again.");
     } finally {
@@ -77,10 +81,10 @@ export default function AuthScreen() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="brand-logo">
-            <img src={logoImg} alt="Inbox OS Logo" className="auth-brand-logo-img" />
+            <img src={logoImg} alt="Inbox-Os Logo" className="auth-brand-logo-img" />
           </div>
-          <h1 className="brand-name">Inbox OS</h1>
-          <p className="brand-subtitle">AI Powered Email OS</p>
+          <h1 className="brand-name">Inbox-Os</h1>
+          <p className="brand-subtitle">AI-powered Gmail Workspace</p>
         </div>
 
         {}
@@ -201,13 +205,13 @@ export default function AuthScreen() {
         )}
 
         <div className="auth-purpose-section" style={{ marginTop: "1.75rem", paddingTop: "1.25rem", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
-          <h3 style={{ fontSize: "0.95rem", color: "var(--accent-primary)", marginBottom: "0.5rem", fontWeight: 600 }}>About Inbox OS</h3>
+          <h3 style={{ fontSize: "0.95rem", color: "var(--accent-primary)", marginBottom: "0.5rem", fontWeight: 600 }}>About Inbox-Os</h3>
           <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "0.75rem" }}>
-            Inbox OS (also known as Inbox-Os) is an AI-powered email assistant designed to help users interact with their Gmail accounts by summarizing messages, searching email history, drafting replies, and organizing inbox workflows.
+            Inbox-Os is an AI-powered Gmail workspace that helps you manage email by summarizing messages, searching email history, drafting replies, and organizing inbox workflows.
           </p>
           <div style={{ background: "rgba(255, 255, 255, 0.03)", padding: "0.75rem", borderRadius: "8px", border: "1px solid rgba(255, 255, 255, 0.06)", fontSize: "0.775rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
-            <strong style={{ color: "#38bdf8", display: "block", marginBottom: "0.25rem" }}>🔒 Gmail Access & Data Privacy:</strong>
-            Inbox OS accesses your Google Gmail data strictly to perform requested actions like reading threads, drafting replies, and organizing labels. Your data is never sold, rented, or used for advertising.
+            <strong style={{ color: "#38bdf8", display: "block", marginBottom: "0.25rem" }}>🔒 Gmail Access &amp; Data Privacy:</strong>
+            Inbox-Os accesses your Google Gmail data strictly to perform actions you request — reading threads, drafting replies, and organizing labels. Your data is never sold, rented, or used for advertising.
           </div>
         </div>
 
