@@ -1,5 +1,6 @@
 
 import React from "react";
+import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 import GmailStatus from "./GmailStatus";
 import ThreadList from "./ThreadList";
@@ -13,7 +14,7 @@ export default function Sidebar() {
       {}
       <div className="sidebar-header">
         <div className="logo-group">
-          <img src="/logo.png" alt="Inbox OS" className="sidebar-logo-img" />
+          <img src={logoImg} alt="Inbox OS" className="sidebar-logo-img" />
           <div>
             <span className="sidebar-logo-text">Inbox OS</span>
           </div>

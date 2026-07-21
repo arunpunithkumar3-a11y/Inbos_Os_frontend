@@ -1,4 +1,5 @@
 import React from "react";
+import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 
 export default function TermsModal() {
@@ -17,7 +18,7 @@ export default function TermsModal() {
       <div className="settings-card legal-modal-card">
         <div className="settings-header">
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <img src="/logo.png" alt="Inbox OS Logo" className="modal-header-logo" />
+            <img src={logoImg} alt="Inbox OS Logo" className="modal-header-logo" />
             <div>
               <h3 className="settings-title">Terms and Conditions</h3>
               <p className="legal-subtitle">Inbox OS • Effective Date: July 20, 2026</p>

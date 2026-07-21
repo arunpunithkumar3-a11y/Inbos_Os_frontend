@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 import { apiRequest } from "../../services/api";
 
@@ -76,7 +77,7 @@ export default function AuthScreen() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="brand-logo">
-            <img src="/logo.png" alt="Inbox OS Logo" className="auth-brand-logo-img" />
+            <img src={logoImg} alt="Inbox OS Logo" className="auth-brand-logo-img" />
           </div>
           <h1 className="brand-name">Inbox OS</h1>
           <p className="brand-subtitle">AI Powered Email OS</p>

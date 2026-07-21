@@ -1,5 +1,6 @@
 
 import React from "react";
+import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 
 export default function WelcomeState() {
@@ -54,7 +55,7 @@ export default function WelcomeState() {
     <div id="welcome-state" className="welcome-container">
       <div className="welcome-branding">
         <div className="big-logo-ring">
-          <img src="/logo.png" alt="Inbox OS Logo" className="welcome-logo-img" />
+          <img src={logoImg} alt="Inbox OS Logo" className="welcome-logo-img" />
         </div>
         <h2 className="welcome-title">Inbox OS Workspace</h2>
         <p className="welcome-subtitle">
