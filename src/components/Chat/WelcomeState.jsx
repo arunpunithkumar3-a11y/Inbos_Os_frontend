@@ -4,7 +4,7 @@ import logoImg from "../../assets/logo.png";
 import { useWorkspace } from "../../contexts/WorkspaceContext";
 
 export default function WelcomeState() {
-  const { gmailConnected, setSkillsOpen, sendMessage, isStreaming, setPrivacyModalOpen, setTermsModalOpen } = useWorkspace();
+  const { gmailConnected, setSkillsOpen, sendMessage, isStreaming } = useWorkspace();
 
   const suggestions = [
     {
@@ -73,20 +73,7 @@ export default function WelcomeState() {
             </svg>
             Explore AI Capabilities
           </button>
-          <button
-            className="btn btn-ghost"
-            style={{ gap: "0.35rem", fontSize: "0.8rem", opacity: 0.85 }}
-            onClick={() => setPrivacyModalOpen(true)}
-          >
-            Privacy Policy
-          </button>
-          <button
-            className="btn btn-ghost"
-            style={{ gap: "0.35rem", fontSize: "0.8rem", opacity: 0.85 }}
-            onClick={() => setTermsModalOpen(true)}
-          >
-            Terms & Conditions
-          </button>
+
         </div>
       </div>
 

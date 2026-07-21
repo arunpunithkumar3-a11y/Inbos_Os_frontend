@@ -44,8 +44,6 @@ export function WorkspaceProvider({ children }) {
   const [skillsOpen, setSkillsOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
-  const [termsModalOpen, setTermsModalOpen] = useState(false);
 
   const [attachments, setAttachments] = useState([]);
 
@@ -87,26 +85,7 @@ export function WorkspaceProvider({ children }) {
     }
   }, [token]);
 
-  useEffect(() => {
-    const handleUrlRoute = () => {
-      const path = window.location.pathname.toLowerCase();
-      const hash = window.location.hash.toLowerCase();
-      
-      if (path.includes("privacy") || hash.includes("privacy")) {
-        setPrivacyModalOpen(true);
-      } else if (path.includes("terms") || hash.includes("terms")) {
-        setTermsModalOpen(true);
-      }
-    };
 
-    handleUrlRoute();
-    window.addEventListener("hashchange", handleUrlRoute);
-    window.addEventListener("popstate", handleUrlRoute);
-    return () => {
-      window.removeEventListener("hashchange", handleUrlRoute);
-      window.removeEventListener("popstate", handleUrlRoute);
-    };
-  }, []);
 
 
   const appendConsoleLog = (message, type = "info") => {
@@ -870,10 +849,6 @@ export function WorkspaceProvider({ children }) {
         setCommandPaletteOpen,
         sidebarOpen,
         setSidebarOpen,
-        privacyModalOpen,
-        setPrivacyModalOpen,
-        termsModalOpen,
-        setTermsModalOpen,
 
         attachments,
         addAttachment,

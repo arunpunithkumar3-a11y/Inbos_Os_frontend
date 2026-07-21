@@ -160,7 +160,6 @@ export default function LandingPage() {
           <a href="#features" className="lp-nav-link">Features</a>
           <a href="#permissions" className="lp-nav-link">Privacy</a>
           <a href="#security" className="lp-nav-link">Security</a>
-          <a href="/privacy-policy" className="lp-nav-link">Privacy Policy</a>
         </div>
 
         <button
@@ -463,20 +462,6 @@ export default function LandingPage() {
           </div>
 
           <nav className="lp-footer-links" aria-label="Footer links">
-            <a
-              href="/privacy-policy"
-              className="lp-footer-link"
-              id="footer-privacy-link"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="/terms-and-conditions"
-              className="lp-footer-link"
-              id="footer-terms-link"
-            >
-              Terms of Service
-            </a>
             <a
               href="mailto:contact@inbox-os.com"
               className="lp-footer-link"

@@ -6,7 +6,7 @@ import { useWorkspace } from "../../contexts/WorkspaceContext";
 import { apiRequest } from "../../services/api";
 
 export default function AuthScreen() {
-  const { handleAuthSuccess, setPrivacyModalOpen, setTermsModalOpen } = useWorkspace();
+  const { handleAuthSuccess } = useWorkspace();
   const navigate = useNavigate();
 
   const [mode, setMode] = useState("login"); 
@@ -206,23 +206,7 @@ export default function AuthScreen() {
 
 
 
-        <div className="auth-footer-legal">
-          <button
-            type="button"
-            className="auth-legal-link"
-            onClick={() => setPrivacyModalOpen(true)}
-          >
-            Privacy Policy
-          </button>
-          <span className="auth-legal-dot">•</span>
-          <button
-            type="button"
-            className="auth-legal-link"
-            onClick={() => setTermsModalOpen(true)}
-          >
-            Terms & Conditions
-          </button>
-        </div>
+
       </div>
     </div>
   );

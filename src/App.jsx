@@ -9,8 +9,6 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import ChatWorkspace from "./components/Chat/ChatWorkspace";
 import SettingsModal from "./components/Modals/SettingsModal";
 import SkillsModal from "./components/Modals/SkillsModal";
-import PrivacyPolicyModal from "./components/Modals/PrivacyPolicyModal";
-import TermsModal from "./components/Modals/TermsModal";
 import CommandPalette from "./components/Common/CommandPalette";
 import OnboardingTour from "./components/Common/OnboardingTour";
 import Toast from "./components/Common/Toast";
@@ -43,8 +41,6 @@ function AppWorkspace() {
       {/* Overlays & Modals */}
       <SettingsModal />
       <SkillsModal />
-      <PrivacyPolicyModal />
-      <TermsModal />
       <CommandPalette />
       <OnboardingTour />
       <Toast />
