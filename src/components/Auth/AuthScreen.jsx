@@ -200,6 +200,17 @@ export default function AuthScreen() {
           </form>
         )}
 
+        <div className="auth-purpose-section" style={{ marginTop: "1.75rem", paddingTop: "1.25rem", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+          <h3 style={{ fontSize: "0.95rem", color: "var(--accent-primary)", marginBottom: "0.5rem", fontWeight: 600 }}>About Inbox OS</h3>
+          <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "0.75rem" }}>
+            Inbox OS (also known as Inbox-Os) is an AI-powered email assistant designed to help users interact with their Gmail accounts by summarizing messages, searching email history, drafting replies, and organizing inbox workflows.
+          </p>
+          <div style={{ background: "rgba(255, 255, 255, 0.03)", padding: "0.75rem", borderRadius: "8px", border: "1px solid rgba(255, 255, 255, 0.06)", fontSize: "0.775rem", color: "var(--text-muted)", lineHeight: 1.45 }}>
+            <strong style={{ color: "#38bdf8", display: "block", marginBottom: "0.25rem" }}>🔒 Gmail Access & Data Privacy:</strong>
+            Inbox OS accesses your Google Gmail data strictly to perform requested actions like reading threads, drafting replies, and organizing labels. Your data is never sold, rented, or used for advertising.
+          </div>
+        </div>
+
         <div className="auth-footer-legal">
           <button
             type="button"
