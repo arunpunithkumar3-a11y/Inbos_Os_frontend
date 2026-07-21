@@ -59,3 +59,8 @@ npm run preview
 ```
 
 The build output will be compiled into the `dist/` directory.
+
+---
+
+*Last Updated: July 2026 - Inbox OS Logo & Legal Policy Integration*
+
